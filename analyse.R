@@ -20,6 +20,11 @@ for (file in list.files(path = here("data"), pattern = "*.csv$")) {
     # Chargement des données
     soub_data <- read.csv(here("data", file))
 
+    if (is.null(soub_data[["time"]])) {
+        warning(paste("Il n'y pas de colonne `time` dans ",file))
+        next()
+    }
+
     soub_data[["id_clic"]] <- seq_len(nrow(soub_data))
 
     # TODO Discuter si pour les temps, il ne faudrait pas soustraire le premier ramener à 0
